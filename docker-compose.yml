@@ -1,0 +1,35 @@
+version: '2' # berättar versionen av docker compose man använder
+
+services:
+    mongo:                  # namn för en service
+        image: mongo:latest # säger vilken image man vill använda
+        ports:              # anger port, (host:container)
+          - 27017:27017
+        volumes:            # anger volumes på detta sätt
+            - /data/db
+        environment:        # ger miljövariabler på ett Key Value sätt
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+        
+    myapp:                  # kan vara ett exempel på en spring-boot app
+        build: .            # bygger en image från en Dockerfile
+        ports:
+          - 8080
+        volumes:            # gör en "mount" från hosten till containern
+            - /c/FOLDER_PATH/spring-boot/:/app
+        environment: 
+            MY_DATABASE_HOST: mongo # ref till servicenamnet på rad 4
+            MY_DATABASE_USER: root
+            MY_DATABASE_PASSWORD: password
+            MY_DATABASE_NAME: MyAppDb
+            MY_DATABASE_PORT: 27017
+        depends_on:         # mongo servicen behöver starta först
+            - mongo         # ref till servicenamnet på rad 4
+
+# docker run 
+# -p 27017:27017 
+# -v /data/db 
+# -e MONGO_INITDB_ROOT_USERNAME=root 
+# -e MONGO_INITDB_ROOT_PASSWORD=password 
+# mongo:latest
+

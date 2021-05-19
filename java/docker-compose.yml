@@ -1,0 +1,9 @@
+version: '2'
+
+services: 
+    java-app:
+        image: java-app
+        ports: 
+            - 8080
+        environment: 
+            - SPRING_PROFILES_ACTIVE=prod

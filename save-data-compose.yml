@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  postgres:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - 5432:5432
+    volumes:
+      - /var/lib/postgres/data
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password123
+      - POSTGRESQL_DATABASE=bookdb
+
+
+
+
+
+
+
+mysql:        /var/lib/mysql
+postgresql:   /var/lib/postgres/data
+mongo:        /data/db
